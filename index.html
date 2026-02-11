@@ -556,7 +556,7 @@
             box-shadow: var(--shadow-sm);
         }
 
-        .legend-marker.jesuit {
+        .legend-marker.iajbs {
             background: var(--secondary-color);
         }
 
@@ -714,10 +714,10 @@
                 All <span class="count">53</span>
             </button>
             <button class="filter-btn" data-filter="cjbe">
-                CJBE Members <span class="count">34</span>
+                IAJBS/CJBE <span class="count">34</span>
             </button>
             <button class="filter-btn" data-filter="affiliated">
-                Affiliated <span class="count">3</span>
+                Affiliated (Non-Jesuit) <span class="count">3</span>
             </button>
             <button class="reset-btn" id="resetBtn" title="Reset to world view">
                 <i class="fas fa-home"></i> Reset View
@@ -739,12 +739,12 @@
     <div class="legend">
         <div class="legend-title">Legend</div>
         <div class="legend-item">
-            <div class="legend-marker jesuit"></div>
-            <span>Jesuit Institution</span>
+            <div class="legend-marker iajbs"></div>
+            <span>IAJBS Member</span>
         </div>
         <div class="legend-item">
             <div class="legend-marker cjbe"></div>
-            <span>CJBE Member</span>
+            <span>IAJBS/CJBE Member</span>
         </div>
         <div class="legend-item">
             <div class="legend-marker affiliated"></div>
@@ -1584,7 +1584,7 @@
         function createPopupContent(inst) {
             let badges = '<span class="popup-badge badge-iajbs">IAJBS</span>';
             if (inst.cjbe) {
-                badges += '<span class="popup-badge badge-cjbe">CJBE</span>';
+                badges += '<span class="popup-badge badge-cjbe">IAJBS/CJBE</span>';
             }
             if (inst.affiliated) {
                 badges += '<span class="popup-badge badge-affiliated">Affiliated</span>';
