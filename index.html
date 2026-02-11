@@ -1582,11 +1582,9 @@
         }
 
         function createPopupContent(inst) {
-            let badges = '';
+            let badges = '<span class="popup-badge badge-iajbs">IAJBS</span>';
             if (inst.cjbe) {
-                badges = '<span class="popup-badge badge-cjbe">CJBE</span>';
-            } else {
-                badges = '<span class="popup-badge badge-iajbs">IAJBS</span>';
+                badges += '<span class="popup-badge badge-cjbe">CJBE</span>';
             }
             if (inst.affiliated) {
                 badges += '<span class="popup-badge badge-affiliated">Jesuit Affiliated</span>';
