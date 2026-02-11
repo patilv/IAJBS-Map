@@ -1503,9 +1503,13 @@
   }
 ];
 
-        // Default map view
-        const DEFAULT_CENTER = [20, 0];
+        // Default map view - will be adjusted to fit all markers
+        const DEFAULT_CENTER = [25, 0];
         const DEFAULT_ZOOM = 2;
+        const DEFAULT_BOUNDS = L.latLngBounds(
+            L.latLng(-45, -130),  // Southwest: covers South America, Australia
+            L.latLng(60, 140)      // Northeast: covers Europe, Asia
+        );
 
         // Initialize map
         let map;
@@ -1520,7 +1524,11 @@
                 zoom: DEFAULT_ZOOM,
                 minZoom: 2,
                 maxZoom: 18,
-                worldCopyJump: true
+                maxBounds: L.latLngBounds(
+                    L.latLng(-90, -180),
+                    L.latLng(90, 180)
+                ),
+                maxBoundsViscosity: 1.0
             });
 
             // Add clean tile layer
@@ -1554,12 +1562,15 @@
             // Add markers
             addMarkers(institutions);
 
+            // Fit map to show all markers
+            map.fitBounds(DEFAULT_BOUNDS, { padding: [20, 20] });
+
             // Hide loading overlay
             document.getElementById('loadingOverlay').style.display = 'none';
         }
 
         function resetMapView() {
-            map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+            map.fitBounds(DEFAULT_BOUNDS, { padding: [20, 20] });
             map.closePopup();
             filterMarkers('all');
         }
