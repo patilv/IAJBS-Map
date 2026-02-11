@@ -1506,10 +1506,15 @@
         // Default map view - will be adjusted to fit all markers
         const DEFAULT_CENTER = [25, 0];
         const DEFAULT_ZOOM = 2;
-        const DEFAULT_BOUNDS = L.latLngBounds(
-            L.latLng(-45, -130),  // Southwest: covers South America, Australia
-            L.latLng(60, 140)      // Northeast: covers Europe, Asia
-        );
+
+        // Calculate bounds from all institutions
+        function getInstitutionBounds() {
+            const bounds = L.latLngBounds();
+            institutions.forEach(inst => {
+                bounds.extend([inst.latitude, inst.longitude]);
+            });
+            return bounds;
+        }
 
         // Initialize map
         let map;
@@ -1562,15 +1567,25 @@
             // Add markers
             addMarkers(institutions);
 
-            // Fit map to show all markers
-            map.fitBounds(DEFAULT_BOUNDS, { padding: [20, 20] });
+            // Fit map to show all markers with responsive padding
+            const isMobile = window.innerWidth < 768;
+            const padding = isMobile ? [10, 10] : [50, 50];
+            map.fitBounds(getInstitutionBounds(), {
+                padding: padding,
+                maxZoom: isMobile ? 2 : 3
+            });
 
             // Hide loading overlay
             document.getElementById('loadingOverlay').style.display = 'none';
         }
 
         function resetMapView() {
-            map.fitBounds(DEFAULT_BOUNDS, { padding: [20, 20] });
+            const isMobile = window.innerWidth < 768;
+            const padding = isMobile ? [10, 10] : [50, 50];
+            map.fitBounds(getInstitutionBounds(), {
+                padding: padding,
+                maxZoom: isMobile ? 2 : 3
+            });
             map.closePopup();
             filterMarkers('all');
         }
